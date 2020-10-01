@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/dist-computing/cs107-FinalProject.svg?token=psyyZA7ALxqWvs9wtjPk&branch=main)](https://travis-ci.com/dist-computing/cs107-FinalProject)
+
 # Final Project Repo for Group 31
 
 Names:
@@ -7,6 +9,6 @@ Names:
 
 ## Git Workflow
 * Create your own branch in `feature/name`
-* Commit changes and resolve merge conflicts
+* Commit changes and resolve merge conflicts by `git merge main`
 * Submit pull request to `main`
 * Approve and merge to `main` 
