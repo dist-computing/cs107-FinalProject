@@ -1,3 +1,7 @@
+
+import numpy as np
+# use pip to install: pip install -r requirements.txt
+
 class AADVariable:
     def __init__(self, val, der=1.0, name=None):
         self.name = name
@@ -55,20 +59,20 @@ class AADVariable:
     def __radd__(self, other):
         return self + other
 
+    def __truediv__(self, other):
+        pass #TODO
+
+    def __rtruediv__(self, other):
+        pass #TODO
+
+    def __pow__(self, other):
+        pass #TODO
+
+    def __rpow__(self, other):
+        pass #TODO
+
     def __repr__(self):
         return "AADVariable f = " + str(self.val) + ", d = " + str(self.der)
-
-    # def cos(self,x):
-    #     self.func = np.cos(x)
-    #     self.der = -np.sin(x)
-
-    # def sin(self,x):
-    #     self.func = np.sin(x)
-    #     self.der = np.cos(x)
-        
-    # def tan(self,x):
-    #     self.func = np.tan(x)
-    #     self.der = 1/(np.cos(x)**2)
 
 def exp(obj: AADVariable) -> AADVariable:
     """EXP OPERATOR: RETURNS AAD-VARIABLE TYPE"""
@@ -94,9 +98,18 @@ def sin(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.sin(val)
-    n_der = obj.val * np.cos(obj.val) # this should be cos(obj.val)
+    n_der = val * np.cos(val)
     return AADVariable(val,der,name=name)
     
+def sinh(obj: AADVariable) -> AADVariable:
+    """SINH OPERATOR: RETURNS AAD-VARIABLE TYPE"""
+    name = obj.name
+    val = obj.val
+    der = obj.der
+    n_val = np.sinh(val)
+    n_der = val * np.cosh(val)
+    return AADVariable(val,der,name=name)
+
 def cos(obj: AADVariable) -> AADVariable:
     """COS OPERATOR: RETURNS AAD-VARIABLE TYPE"""
     name = obj.name
@@ -105,6 +118,15 @@ def cos(obj: AADVariable) -> AADVariable:
     n_val = np.cos(val)
     n_der = val * -np.sin(val)
     return AADVariable(n_val,n_der,name=name)
+
+def cosh(obj: AADVariable) -> AADVariable:
+    """SINH OPERATOR: RETURNS AAD-VARIABLE TYPE"""
+    name = obj.name
+    val = obj.val
+    der = obj.der
+    n_val = np.cosh(val)
+    n_der = val * np.sinh(val)
+    return AADVariable(val,der,name=name)
 
 def tan(obj: AADVariable) -> AADVariable:
     """TAN OPERATOR: RETURNS AAD-VARIABLE TYPE"""
@@ -115,13 +137,22 @@ def tan(obj: AADVariable) -> AADVariable:
     n_der = val * 1/(np.cos(val)**2)
     return AADVariable(n_val,n_der,name=name)
 
+def tanh(obj: AADVariable) -> AADVariable:
+    """TANH OPERATOR: RETURNS AAD-VARIABLE TYPE"""
+    name = obj.name
+    val = obj.val
+    der = obj.der
+    n_val = np.tanh(val)
+    n_der = val * (1-(np.tanh(val)**2))
+    return AADVariable(val,der,name=name)
+
 def arcsin(obj: AADVariable) -> AADVariable:
     """ARCSIN OPERATOR: RETURNS AAD-VARIABLE TYPE"""
     name = obj.name
     val = obj.val
     der = obj.der
     n_val = np.arcsin(val)
-    n_der = val * 1/(sqrt(1-(val**2)))
+    n_der = val * 1/(np.sqrt(1-(val**2)))
     return AADVariable(n_val,n_der,name=name)
 
 def arccos(obj: AADVariable) -> AADVariable:
@@ -130,7 +161,7 @@ def arccos(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.arccos(val)
-    n_der = val * -1/(sqrt(1-(val**2)))
+    n_der = val * -1/(np.sqrt(1-(val**2)))
     return AADVariable(n_val,n_der,name=name)
 
 def arctan(obj: AADVariable) -> AADVariable:
@@ -139,10 +170,21 @@ def arctan(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.arccos(val)
-    n_der = val * -1/(sqrt(1-(val**2)))
+    n_der = val * -1/(np.sqrt(1-(val**2)))
     return AADVariable(n_val,n_der,name=name)
 
 
-x = AADVariable(3.14159265358/2)
-print(sin(x))
-print(3*x + 5)
+def sqrt(obj: AADVariable) -> AADVariable:
+    """ARCTAN OPERATOR: RETURNS AAD-VARIABLE TYPE"""
+    name = obj.name
+    val = obj.val
+    der = obj.der
+    n_val = np.sqrt(val)
+    n_der = val * 0.5*-1/(np.sqrt(val))
+    return AADVariable(n_val,n_der,name=name)
+
+
+if __name__=="__main__":
+    x = AADVariable(3.14159265358/2)
+    print(sin(x))
+    print(3*x + 5)
