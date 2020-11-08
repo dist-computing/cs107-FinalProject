@@ -1,4 +1,1 @@
-numpy
-math
-simpy
 pytest
