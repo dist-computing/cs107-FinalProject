@@ -79,22 +79,24 @@ def test_7():
     
 test_7()
 
+#testing 2*cos(x)
+def test_8():
+    x = AD.AADVariable((math.pi))
+    x = 2*AD.cos(x)
+    #value check
+    assert abs(x.val - 2*math.cos(math.pi)) < 1e-15
+    #derivative check
+    assert abs(x.der + 2*math.sin(math.pi)) < 1e-15
+test_8()
+
 def mul_edgecase():
     x = AD.AADVariable(.5)
     try:
         y=x*'string'
     except:
-        print('here')
         assert(sys.exc_info()[0] == TypeError)
 mul_edgecase()
 
-def rev_mul_edgecase():
-    x = AD.AADVariable(.5)
-    try:
-        y='string'*x
-    except:
-        assert(sys.exc_info()[0] == TypeError)
-mul_edgecase()
 
 def add_edgecase():
     x = AD.AADVariable(.5)
@@ -104,10 +106,22 @@ def add_edgecase():
         assert(sys.exc_info()[0] == TypeError)
 add_edgecase()
 
-def rev_add_edgecase():
+
+
+def div_edgecase():
     x = AD.AADVariable(.5)
     try:
-        y='string'+ x
+        y=x / 'string'
     except:
+        print('here')
         assert(sys.exc_info()[0] == TypeError)
-add_edgecase()
+div_edgecase()
+
+def sub_edgecase():
+    x = AD.AADVariable(.5)
+    try:
+        y=x-'string'
+    except:
+        print('here')
+        assert(sys.exc_info()[0] == TypeError)
+sub_edgecase()

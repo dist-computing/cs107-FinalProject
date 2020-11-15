@@ -59,7 +59,7 @@ class AADVariable:
             new.val = self.val / other.val
             new.der = (self.der * other.val - self.val * other.der)/(other.val**2)
         except AttributeError: # real number
-            new.val = self.val / other.val
+            new.val = self.val / other
             new.der = self.der
         return new
 
