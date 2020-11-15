@@ -81,10 +81,24 @@ class AADVariable:
         return new
 
     def __pow__(self, other): #self**other
-        pass #TODO
+        new = AADVariable(0.0, 0.0)
+        try:
+            new.val = self.val ** other.val
+            new.der = (self.val ** (other.val - 1)) * (self.der * other.val + self.val * math.log(self.val) * other.der)
+        except AttributeError: # just simple case of number...
+            new.val = self.val ** other
+            new.der = self.val ** (other - 1) * other * self.der
+        return new
 
     def __rpow__(self, other): # other**self
-        pass #TODO
+        new = AADVariable(0.0, 0.0)
+        try:
+            new.val = other.val ** self.val
+            new.der = (other.val ** (self.val - 1)) * (other.der * self.val + other.val * math.log(other.val) * self.der)
+        except AttributeError: # just "simple" case of number... other**self
+            new.val = other ** self.val
+            new.der = math.log(other) * other**(self.val) * self.der
+        return new
 
     def __repr__(self):
         return "AADVariable fun = " + str(self.val) + ", der = " + str(self.der)
@@ -103,7 +117,7 @@ def log(obj: AADVariable) -> AADVariable:
     name = obj.name
     val = obj.val
     der = obj.der
-    n_val = np.ln(val)
+    n_val = np.log(val)
     n_der = der * 1/(val)
     return AADVariable(val,der,name=name)
 
