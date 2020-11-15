@@ -95,7 +95,7 @@ def exp(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.exp(val)
-    n_der = val * np.exp(val)
+    n_der = der * np.exp(val)
     return AADVariable(n_val,n_der,name=name)
 
 def log(obj: AADVariable) -> AADVariable:
@@ -104,7 +104,7 @@ def log(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.ln(val)
-    n_der = val * 1/(val)
+    n_der = der * 1/(val)
     return AADVariable(val,der,name=name)
 
 def sin(obj: AADVariable) -> AADVariable:
@@ -113,7 +113,7 @@ def sin(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.sin(val)
-    n_der = val * np.cos(val)
+    n_der = np.cos(val) * der
     return AADVariable(n_val,n_der,name=name)
     
 def sinh(obj: AADVariable) -> AADVariable:
@@ -122,7 +122,7 @@ def sinh(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.sinh(val)
-    n_der = val * np.cosh(val)
+    n_der = der * np.cosh(val)
     return AADVariable(n_val,n_der,name=name)
 
 def cos(obj: AADVariable) -> AADVariable:
@@ -131,7 +131,7 @@ def cos(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.cos(val)
-    n_der = val * -np.sin(val)
+    n_der = der * -np.sin(val)
     return AADVariable(n_val,n_der,name=name)
 
 def cosh(obj: AADVariable) -> AADVariable:
@@ -140,7 +140,7 @@ def cosh(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.cosh(val)
-    n_der = val * np.sinh(val)
+    n_der = der * np.sinh(val)
     return AADVariable(n_val,n_der,name=name)
 
 def tan(obj: AADVariable) -> AADVariable:
@@ -149,7 +149,7 @@ def tan(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.tan(val)
-    n_der = val * 1/(np.cos(val)**2)
+    n_der = der * 1/(np.cos(val)**2)
     return AADVariable(n_val,n_der,name=name)
 
 def tanh(obj: AADVariable) -> AADVariable:
@@ -158,7 +158,7 @@ def tanh(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.tanh(val)
-    n_der = val * (1-(np.tanh(val)**2))
+    n_der = der * (1-(np.tanh(val)**2))
     return AADVariable(n_val,n_der,name=name)
 
 def arcsin(obj: AADVariable) -> AADVariable:
@@ -167,7 +167,7 @@ def arcsin(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.arcsin(val)
-    n_der = val * 1/(np.sqrt(1-(val**2)))
+    n_der = der * 1/(np.sqrt(1-(val**2)))
     return AADVariable(n_val,n_der,name=name)
 
 def arccos(obj: AADVariable) -> AADVariable:
@@ -176,7 +176,7 @@ def arccos(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.arccos(val)
-    n_der = val * -1/(np.sqrt(1-(val**2)))
+    n_der = der * -1/(np.sqrt(1-(val**2)))
     return AADVariable(n_val,n_der,name=name)
 
 def arctan(obj: AADVariable) -> AADVariable:
@@ -185,7 +185,7 @@ def arctan(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.arccos(val)
-    n_der = val * -1/(np.sqrt(1-(val**2)))
+    n_der = der * -1/(np.sqrt(1-(val**2)))
     return AADVariable(n_val,n_der,name=name)
 
 
@@ -195,6 +195,6 @@ def sqrt(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.sqrt(val)
-    n_der = val * 0.5*-1/(np.sqrt(val))
+    n_der = der * 0.5*-1/(np.sqrt(val))
     return AADVariable(n_val,n_der,name=name)
 
