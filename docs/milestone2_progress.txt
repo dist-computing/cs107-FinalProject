@@ -1,0 +1,45 @@
+Group 31: Haipeng Lin, Matheus Fernandes, & Benjamin Manning
+Milestone 2B
+*= can be switched around easily if necessary
+
+Section 1: Tasks each group member has been assigned for Milestone 2
+•	Haipeng:
+o	Finish Elementary operations/overrides
+o	Documentation Section Responsibilities: “How to your package””*
+o	Minimum Package requirements miscellaneous completion*
+o	Complete core Forward mode library code
+
+•	Matheus:
+o	Collaborating on creating test suit
+o	Documentation Section Responsibilities: “Implementation Details”*
+o	Overall Documentation checker*
+o   Final update of future features 
+
+•	Benjamin:
+o	Documentation Section Responsibilities: “Software organization”*
+o	Collaborating on creating test suite
+o	Minimum implementation requirements miscellaneous completion*
+
+•	Group – All group members must:
+o	Run test suites on local machine to make sure they work
+o	Find a friend to use the completed work from Milestone 2 who knows python
+	Have this friend use our AD class successfully without help, otherwise, make more user friendly
+o	Read through all documentation to make sure it is edited, correct, and east to read
+o	Group brainstorm on future features to implement for next milestone 
+
+Section 2: Tasks each group member has completed since submission of Milestone 1
+•	Haipeng: 
+o	updated the organization section for milestone 2A
+o	Started coding elementary operations/overrides
+o	Setup organization for repositories
+
+•	Matheus:
+o	Updated background and introduction sections in milestone 2A
+o	Collaborated on coding elementary derivative functions
+o	Created requirements.txt file and implemented downloadable operations
+o	Set up dependencies/ added pip installations 
+
+•	Benjamin:
+o	Updated the implementations sections in milestone 2A
+o	Wrote all of milestone 2B
+o	Collaborated on coding elementary derivative functions

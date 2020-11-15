@@ -2,9 +2,12 @@ language: python
 python:
     - "3.6"
 before_install:
+    - pip install -r requirements.txt
     - pip install pytest pytest-cov
     - pip install codecov
 script:
+    - cd tests
     - pytest --cov=./
+    - coverage run test_1.py
 after_success:
     - codecov
