@@ -79,11 +79,29 @@ def mul_edgecase():
         assert(sys.exc_info()[0] == TypeError)
 mul_edgecase()
 
+def rev_mul_edgecase():
+    x = AD.AADVariable(.5)
+    try:
+        y='string'*x
+    except:
+        print('here')
+        # print(sys.exc_info()[0])
+        assert(sys.exc_info()[0] == TypeError)
+mul_edgecase()
 
 def add_edgecase():
     x = AD.AADVariable(.5)
     try:
         y=x+'string'
+    except:
+        print('here')
+        assert(sys.exc_info()[0] == TypeError)
+add_edgecase()
+
+def rev_add_edgecase():
+    x = AD.AADVariable(.5)
+    try:
+        y='string'+ x
     except:
         print('here')
         assert(sys.exc_info()[0] == TypeError)
