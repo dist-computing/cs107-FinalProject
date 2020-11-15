@@ -1,9 +1,14 @@
-import pytest
-from AAD import AADVariable as AD
+import sys
+sys.path.insert(1, '../')
+
+import numpy
+from AAD import AAD as AD
 import math
 
 
-def test_1():
-    x = AD(math.pi/2)
+def test_sin():
+    x = AADVariable(3.14159265358/2)
     print(sin(x))
     print(3*x + 5)
+test_sin()
+
