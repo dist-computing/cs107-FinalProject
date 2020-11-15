@@ -18,11 +18,8 @@ class AADVariable:
             new.der = self.der * other.val + other.der * self.val
             new.val = self.val * other.val
         except AttributeError:
-            try:
-                new.der = self.der * other
-                new.val = self.val * other
-            except ValueError:
-                raise ValueError("unrecognized type for multiply")
+            new.der = self.der * other
+            new.val = self.val * other
 
         return new
 
@@ -41,11 +38,8 @@ class AADVariable:
             new.der = self.der + other.der
             new.val = self.val + other.val
         except AttributeError:
-            try:
-                new.der = self.der + 0       # real number...
-                new.val = self.val + other
-            except ValueError:
-                raise ValueError("unrecognized type for addition")
+            new.der = self.der + 0       # real number...
+            new.val = self.val + other
 
         return new
     
@@ -199,7 +193,7 @@ def arctan(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.arctan(val)
-    n_der = der * 1/(np.sqrt(val**2+1)) # 
+    n_der = der * 1/(val**2+1) # 
     return AADVariable(n_val,n_der,name=name)
 
 def sqrt(obj: AADVariable) -> AADVariable:
@@ -208,5 +202,5 @@ def sqrt(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.sqrt(val)
-    n_der = der * 0.5*-1/(np.sqrt(val))
+    n_der = der * 0.5 * 1/(np.sqrt(val))
     return AADVariable(n_val,n_der,name=name)
