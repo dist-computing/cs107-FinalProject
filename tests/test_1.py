@@ -6,10 +6,12 @@ import numpy as np
 import AAD as AD
 import math
 
-
 def test_sin():
-    x = AD.AADVariable(3.14159265358/2)
-    print(AD.sin(x).der)
-    print(np.cos(3.14159265358/2))
+    x = AD.AADVariable((math.pi/2))
+    x = AD.sin(x)
+    #value check
+    assert abs(x.val - math.sin(math.pi/2)) <  1e-7
+    #derivative check
+    assert abs(x.der - math.cos(math.pi/2)) <  1e-7
 test_sin()
 

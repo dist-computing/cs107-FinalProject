@@ -1,5 +1,6 @@
 
 import numpy as np
+import math
 # use pip to install: pip install -r requirements.txt
 
 class AADVariable:
@@ -86,7 +87,7 @@ class AADVariable:
         pass #TODO
 
     def __repr__(self):
-        return "AADVariable f = " + str(self.val) + ", d = " + str(self.der)
+        return "AADVariable fun = " + str(self.val) + ", der = " + str(self.der)
 
 def exp(obj: AADVariable) -> AADVariable:
     """EXP OPERATOR: RETURNS AAD-VARIABLE TYPE"""
@@ -113,7 +114,7 @@ def sin(obj: AADVariable) -> AADVariable:
     der = obj.der
     n_val = np.sin(val)
     n_der = val * np.cos(val)
-    return AADVariable(val,der,name=name)
+    return AADVariable(n_val,n_der,name=name)
     
 def sinh(obj: AADVariable) -> AADVariable:
     """SINH OPERATOR: RETURNS AAD-VARIABLE TYPE"""
@@ -122,7 +123,7 @@ def sinh(obj: AADVariable) -> AADVariable:
     der = obj.der
     n_val = np.sinh(val)
     n_der = val * np.cosh(val)
-    return AADVariable(val,der,name=name)
+    return AADVariable(n_val,n_der,name=name)
 
 def cos(obj: AADVariable) -> AADVariable:
     """COS OPERATOR: RETURNS AAD-VARIABLE TYPE"""
@@ -140,7 +141,7 @@ def cosh(obj: AADVariable) -> AADVariable:
     der = obj.der
     n_val = np.cosh(val)
     n_der = val * np.sinh(val)
-    return AADVariable(val,der,name=name)
+    return AADVariable(n_val,n_der,name=name)
 
 def tan(obj: AADVariable) -> AADVariable:
     """TAN OPERATOR: RETURNS AAD-VARIABLE TYPE"""
@@ -158,7 +159,7 @@ def tanh(obj: AADVariable) -> AADVariable:
     der = obj.der
     n_val = np.tanh(val)
     n_der = val * (1-(np.tanh(val)**2))
-    return AADVariable(val,der,name=name)
+    return AADVariable(n_val,n_der,name=name)
 
 def arcsin(obj: AADVariable) -> AADVariable:
     """ARCSIN OPERATOR: RETURNS AAD-VARIABLE TYPE"""
@@ -196,10 +197,4 @@ def sqrt(obj: AADVariable) -> AADVariable:
     n_val = np.sqrt(val)
     n_der = val * 0.5*-1/(np.sqrt(val))
     return AADVariable(n_val,n_der,name=name)
-
-
-if __name__=="__main__":
-    x = AADVariable(3.14159265358/2)
-    print(sin(x))
-    print(3*x + 5)
 
