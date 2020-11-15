@@ -63,11 +63,21 @@ def test_6():
     #value check
     assert abs(x.val - (math.sqrt(v)*math.atan(v) + math.acos(v))) <  1e-15
     #derivative check
-    # assert abs(x.der - ) < 1e-15
-    print(x.der)
-    print(math.sqrt(v)/(v**2 + 1.) - 1./(math.sqrt(1. - v) * math.sqrt(v + 1.)) + (math.tan(v)**(-1.)/(2. *math.sqrt(v))))
+    assert abs(x.der- (math.sqrt(v)/(v**2 + 1.) - 1./(math.sqrt(1. - v**2)) + (math.atan(v)/(2. * math.sqrt(v))))) < 1e-15
+    
 test_6()
 
+#x**2/sqrt(x)
+def test_7():
+    v=4
+    x = AD.AADVariable(v)
+    x = x**2/AD.sqrt(x)
+    #value check
+    assert abs(x.val - v**2/math.sqrt(v)) <  1e-15
+    #derivative check
+    assert abs(x.der-(3.*math.sqrt(v))/2. ) < 1e-15
+    
+test_7()
 
 def mul_edgecase():
     x = AD.AADVariable(.5)
@@ -75,7 +85,6 @@ def mul_edgecase():
         y=x*'string'
     except:
         print('here')
-        # print(sys.exc_info()[0])
         assert(sys.exc_info()[0] == TypeError)
 mul_edgecase()
 
@@ -84,8 +93,6 @@ def rev_mul_edgecase():
     try:
         y='string'*x
     except:
-        print('here')
-        # print(sys.exc_info()[0])
         assert(sys.exc_info()[0] == TypeError)
 mul_edgecase()
 
@@ -94,7 +101,6 @@ def add_edgecase():
     try:
         y=x+'string'
     except:
-        print('here')
         assert(sys.exc_info()[0] == TypeError)
 add_edgecase()
 
@@ -103,6 +109,5 @@ def rev_add_edgecase():
     try:
         y='string'+ x
     except:
-        print('here')
         assert(sys.exc_info()[0] == TypeError)
 add_edgecase()
