@@ -113,13 +113,13 @@ def exp(obj: AADVariable) -> AADVariable:
     return AADVariable(n_val,n_der,name=name)
 
 def log(obj: AADVariable) -> AADVariable:
-    """LOG OPERATOR: RETURNS AAD-VARIABLE TYPE"""
+    """LOG BASE E OPERATOR: RETURNS AAD-VARIABLE TYPE"""
     name = obj.name
     val = obj.val
     der = obj.der
     n_val = np.log(val)
     n_der = der * 1/(val)
-    return AADVariable(val,der,name=name)
+    return AADVariable(n_val,n_der,name=name)
 
 def sin(obj: AADVariable) -> AADVariable:
     """SIN OPERATOR: RETURNS AAD-VARIABLE TYPE"""
@@ -211,4 +211,3 @@ def sqrt(obj: AADVariable) -> AADVariable:
     n_val = np.sqrt(val)
     n_der = der * 0.5*-1/(np.sqrt(val))
     return AADVariable(n_val,n_der,name=name)
-
