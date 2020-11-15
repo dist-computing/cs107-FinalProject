@@ -8,5 +8,6 @@ before_install:
 script:
     - cd tests
     - pytest --cov=./
+    - coverage run test_1.py
 after_success:
     - codecov

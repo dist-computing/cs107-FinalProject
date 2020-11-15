@@ -9,7 +9,7 @@ import math
 
 def test_sin():
     x = AD.AADVariable(3.14159265358/2)
-    print(AD.sin(x))
-    print(3*x + 5)
+    print(AD.sin(x).der)
+    print(np.cos(3.14159265358/2))
 test_sin()
 
