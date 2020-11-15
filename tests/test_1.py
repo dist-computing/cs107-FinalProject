@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(1, '../AAD/')
 
-import numpy
+import numpy as np
 # from AAD import AADVariable as AD
 import AAD as AD
 import math
