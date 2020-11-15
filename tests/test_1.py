@@ -15,3 +15,12 @@ def test_sin():
     assert abs(x.der - math.cos(math.pi/2)) <  1e-7
 test_sin()
 
+
+def test_sin_cos():
+    x = AD.AADVariable((math.pi))
+    x = AD.sin(AD.cos(x))
+    #value check
+    assert abs(x.val - math.sin(math.cos(math.pi))) <  1e-7
+    #derivative check
+    #assert abs(x.der - math.cos(math.pi/2)) <  1e-7
+test_sin_cos()
