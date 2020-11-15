@@ -29,9 +29,7 @@ class AADVariable:
         return self * other
 
     def __neg__(self):
-        new = AADVariable(-self.val)
-        new.val = -self.val
-        new.der  = -self.der
+        new = AADVariable(-self.val, -self.der)
         return new
 
     def __add__(self, other):
@@ -40,7 +38,7 @@ class AADVariable:
 
         try:
             new.der = self.der + other.der
-            new.func = self.val + other.val
+            new.val = self.val + other.val
         except AttributeError:
             try:
                 new.der = self.der + 0       # real number...
@@ -59,16 +57,32 @@ class AADVariable:
     def __radd__(self, other):
         return self + other
 
-    def __truediv__(self, other):
+    def __truediv__(self, other): # self/other
+        new = AADVariable(self.val, self.der)
+        # (f/g)' = (f'g - g'f)/g**2
+        try:
+            new.val = self.val / other.val
+            new.der = (self.der * other.val - self.val * other.der)/(other.val**2)
+        except AttributeError: # real number
+            new.val = self.val / other.val
+            new.der = self.der
+        return new
+
+    def __rtruediv__(self, other): # other/self
+        new = AADVariable(self.val, self.der)
+        # (f/g)' = (f'g - g'f)/g**2
+        try:
+            new.val = other.val / self.val
+            new.der = (other.der * self.val - self.der * other.val)/(self.val**2)
+        except AttributeError: # real number divided by self...
+            new.val = other / self.val
+            new.der = -(self.der * other)/(self.val**2)
+        return new
+
+    def __pow__(self, other): #self**other
         pass #TODO
 
-    def __rtruediv__(self, other):
-        pass #TODO
-
-    def __pow__(self, other):
-        pass #TODO
-
-    def __rpow__(self, other):
+    def __rpow__(self, other): # other**self
         pass #TODO
 
     def __repr__(self):
@@ -188,3 +202,4 @@ if __name__=="__main__":
     x = AADVariable(3.14159265358/2)
     print(sin(x))
     print(3*x + 5)
+
