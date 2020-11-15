@@ -181,7 +181,7 @@ def arcsin(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.arcsin(val)
-    n_der = der * 1/(np.sqrt(1-(val**2)))
+    n_der = der * 1/(np.sqrt(1-(val**2))) # 
     return AADVariable(n_val,n_der,name=name)
 
 def arccos(obj: AADVariable) -> AADVariable:
@@ -190,7 +190,7 @@ def arccos(obj: AADVariable) -> AADVariable:
     val = obj.val
     der = obj.der
     n_val = np.arccos(val)
-    n_der = der * -1/(np.sqrt(1-(val**2)))
+    n_der = der * -1/(np.sqrt(1-(val**2))) #
     return AADVariable(n_val,n_der,name=name)
 
 def arctan(obj: AADVariable) -> AADVariable:
@@ -198,10 +198,9 @@ def arctan(obj: AADVariable) -> AADVariable:
     name = obj.name
     val = obj.val
     der = obj.der
-    n_val = np.arccos(val)
-    n_der = der * -1/(np.sqrt(1-(val**2)))
+    n_val = np.arctan(val)
+    n_der = der * 1/(np.sqrt(val**2+1)) # 
     return AADVariable(n_val,n_der,name=name)
-
 
 def sqrt(obj: AADVariable) -> AADVariable:
     """ARCTAN OPERATOR: RETURNS AAD-VARIABLE TYPE"""
