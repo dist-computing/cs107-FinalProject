@@ -89,6 +89,17 @@ def test_8():
     assert abs(x.der + 2*math.sin(math.pi)) < 1e-15
 test_8()
 
+
+#testing 2/cos(x)
+def test_9():
+    x = AD.AADVariable((math.pi))
+    x = 2/AD.cos(x)
+    #value check
+    assert abs(x.val - 2/math.cos(math.pi)) < 1e-15
+    #derivative check
+    assert abs(x.der + 2*math.tan(math.pi)/math.cos(math.pi)) < 1e-15
+test_9()
+
 def mul_edgecase():
     x = AD.AADVariable(.5)
     try:
