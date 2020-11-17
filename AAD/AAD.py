@@ -94,6 +94,9 @@ class AADVariable:
             new.der = math.log(other) * other**(self.val) * self.der
         return new
 
+    def jacobian(self):
+        return self.der
+
     def __repr__(self):
         return "AADVariable fun = " + str(self.val) + ", der = " + str(self.der)
 

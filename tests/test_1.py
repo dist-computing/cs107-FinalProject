@@ -63,8 +63,7 @@ def test_6():
     #value check
     assert abs(x.val - (math.sqrt(v)*math.atan(v) + math.acos(v))) <  1e-15
     #derivative check
-    assert abs(x.der- (math.sqrt(v)/(v**2 + 1.) - 1./(math.sqrt(1. - v**2)) + (math.atan(v)/(2. * math.sqrt(v))))) < 1e-15
-    
+    assert abs(x.der- (math.sqrt(v)/(v**2 + 1.) - 1./(math.sqrt(1. - v**2)) + (math.atan(v)/(2. * math.sqrt(v))))) < 1e-15  
 test_6()
 
 #x**2/sqrt(x)
@@ -75,8 +74,7 @@ def test_7():
     #value check
     assert abs(x.val - v**2/math.sqrt(v)) <  1e-15
     #derivative check
-    assert abs(x.der-(3.*math.sqrt(v))/2. ) < 1e-15
-    
+    assert abs(x.der-(3.*math.sqrt(v))/2. ) < 1e-15 
 test_7()
 
 #testing 2*cos(x)
@@ -89,7 +87,6 @@ def test_8():
     assert abs(x.der + 2*math.sin(math.pi)) < 1e-15
 test_8()
 
-
 #testing 2/cos(x)
 def test_9():
     x = AD.AADVariable((math.pi))
@@ -99,7 +96,6 @@ def test_9():
     #derivative check
     assert abs(x.der + 2*math.tan(math.pi)/math.cos(math.pi)) < 1e-15
 test_9()
-
 
 #testing 2^exp(x)
 def test_10():
@@ -119,7 +115,6 @@ def mul_edgecase():
         assert(sys.exc_info()[0] == TypeError)
 mul_edgecase()
 
-
 def add_edgecase():
     x = AD.AADVariable(.5)
     try:
@@ -128,12 +123,10 @@ def add_edgecase():
         assert(sys.exc_info()[0] == TypeError)
 add_edgecase()
 
-
-
 def div_edgecase():
     x = AD.AADVariable(.5)
     try:
-        y=x / 'string'
+        y=x/'string'
     except:
         assert(sys.exc_info()[0] == TypeError)
 div_edgecase()
@@ -145,3 +138,17 @@ def sub_edgecase():
     except:
         assert(sys.exc_info()[0] == TypeError)
 sub_edgecase()
+
+#testing jacobian of 2^exp(x)
+def jacobian_test():
+    x = AD.AADVariable((math.pi))
+    x = 2**AD.exp(x)
+    assert abs(x.jacobian() - 2**(math.exp(math.pi))*math.exp(math.pi)*math.log(2)) < 1e-15
+jacobian_test()
+
+#testing repr of 2^exp(x)
+def repr_test():
+    x = AD.AADVariable((math.pi))
+    x = 2**AD.exp(x)
+    repr(x)
+repr_test()
