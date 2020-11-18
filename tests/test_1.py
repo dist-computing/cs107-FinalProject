@@ -131,6 +131,14 @@ def div_edgecase():
         assert(sys.exc_info()[0] == TypeError)
 div_edgecase()
 
+def div_edgecase_0():
+    x = AD.AADVariable(.5)
+    try:
+        y=x/0
+    except:
+        assert(sys.exc_info()[0] == ZeroDivisionError)
+div_edgecase_0()
+
 def sub_edgecase():
     x = AD.AADVariable(.5)
     try:
