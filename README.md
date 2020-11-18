@@ -6,9 +6,17 @@ Names:
 * Matheus C. Fernandes
 * Haipeng Lin
 * Ben Manning
+* *CA: Johnathan Jiang
 
 ## Git Workflow
 * Create your own branch in `feature/name`
 * Commit changes and resolve merge conflicts by `git merge main`
 * Submit pull request to `main`
 * Approve and merge to `main` 
+
+### Collaborative workflow in Deepnote
+To facilitate coding, we used a shared deepnote project to create shared commits under the `group/*` branches.
+
+* Use Jupyter Notebook `%%writefile` to save into the `cs107-FinalProject` folder in Deepnote;
+* Use the terminal to `git commit` staged files as appropriate;
+* Create the pull request and ask another teammate for approval.
