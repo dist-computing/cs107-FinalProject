@@ -9,5 +9,6 @@ script:
     - cd tests
     - pytest --cov=./
     - coverage run test_1.py
+    - coverage run test_utils.py
 after_success:
     - codecov
