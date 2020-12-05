@@ -30,6 +30,6 @@ def multiVariable2():
     x = AD.AADVariable(3, [1 ,0])
     y = AD.AADVariable(2, [0, 1]) 
 
-    solve = grad(lambda X: AD.abs(2*X[0]-12+2*X[1]**2),[x,y],0.001,progress_step=None,max_iter=10000)
+    solve = grad(lambda X: AD.abs(2*X[0]-12+2*X[1]**2),[x,y],0.001,progress_step=5000,max_iter=10000)
     assert (solve[0].val-2.972 <tol and solve[1].val -1.745<tol)
 multiVariable2()
