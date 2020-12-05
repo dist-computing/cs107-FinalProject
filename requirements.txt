@@ -3,4 +3,3 @@ scipy
 simpy
 pytest
 autograd
-copy
