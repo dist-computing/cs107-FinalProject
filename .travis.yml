@@ -8,7 +8,9 @@ before_install:
 script:
     - cd tests
     - pytest --cov=./
-    - coverage run test_1.py
+    - coverage run test_main.py
     - coverage run test_utils.py
+    - coverage run test_graddesc.py
+
 after_success:
     - codecov
