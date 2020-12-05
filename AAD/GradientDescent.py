@@ -1,3 +1,6 @@
+import copy
+import numpy as np
+
 def grad(func, init, gamma, max_iter=10000, precision = 10**-6, progress_step=None):
     a=copy.deepcopy(init)
     i=0
