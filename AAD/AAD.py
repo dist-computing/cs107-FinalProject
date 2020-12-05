@@ -1,9 +1,10 @@
 # use pip to install: pip install -r requirements.txt
 import numpy as np
 import math
+import copy
 
 # Uncomment below for %%writefile
-from AADUtils import AADUtils
+#from AADUtils import AADUtils
 
 class AADVariable:
     """ 
@@ -25,13 +26,17 @@ class AADVariable:
     they can be handled as a list of AADVariables using an external component. AADVariable is a multivariate-input, scalar-output
     Dual number class in the forward mode.
     """
-    def __init__(self, val, der=1.0, name=None):
+    def __init__(self, val, der=1.0, der2=0.0, name=None):
         self.name = name
         self.val = val
-        if val == 0: der = 0.
+        if val == 0: der = 0. # check if the value passing in is 0, if so than der must be 0 by definition.
 
         self.der = der        # this has hidden implications - see der.setter below for the expected behavior.
+        self.der2 = der2      # second derivative - see caveat above
 
+    def __cmp__(self, other):
+        return cmp(self.name, other.name)
+    
     @property
     def der(self):
         """
@@ -336,4 +341,17 @@ def sqrt(obj: AADVariable) -> AADVariable:
     der = obj.der
     n_val = np.sqrt(val)
     n_der = der * 0.5 * 1/(np.sqrt(val))
+    return AADVariable(n_val,n_der,name=name)
+
+def abs(obj: AADVariable) -> AADVariable:
+    """
+    ABSOLUTE VALUE OPERATOR:
+    INPUT: REAL NUMBER OR AAD-VARIABLE
+    RETURNS: AAD-VARIABLE TYPE
+    """
+    name = obj.name
+    val = obj.val
+    der = obj.der
+    n_val = np.abs(val)
+    n_der = der * val/np.abs(val)
     return AADVariable(n_val,n_der,name=name)
