@@ -1,4 +1,6 @@
 # example code for vector valued functions
+from AAD import AADVariable
+import numpy as np
 class AADFunction:
     def __init__(self, fn):
         self.fn = fn

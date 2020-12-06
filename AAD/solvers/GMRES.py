@@ -1,5 +1,8 @@
 import numpy as np
 from scipy.sparse.linalg import gmres, LinearOperator
+from AADFunction import AADFunction
+from AAD import AADVariable
+
 
 class AAD_GMRES:
     @staticmethod
@@ -33,4 +36,4 @@ class AAD_GMRES:
 # so multivariates are handled correct please pass in a lambda function for faux symbolic math
 #print(AAD_GMRES.solve(lambda x, y: [x+y+5, 3*x-y+1], [0.5, 1.5])) # [-1.5, -3.5]
 #print(AAD_GMRES.solve(lambda x: [x-2], [300])) # [2.0]
-#print(AAD_GMRES.solve(lambda x, y, z, a: [x+4*y-z+a, a-2, y*5+z*0.1, x+2*a], [1, 0, 1, 1]))
+# print(AAD_GMRES.solve(lambda x, y, z, a: [x+4*y-z+a, a-2, y*5+z*0.1, x+2*a], [1, 0, 1, 1]))

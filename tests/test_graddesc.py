@@ -4,7 +4,7 @@ sys.path.insert(1, '../AAD/')
 import numpy as np
 import copy
 import AAD as AD
-from GradientDescent import grad
+from solvers.GradientDescent import grad
 
 import math
 
