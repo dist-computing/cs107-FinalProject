@@ -109,6 +109,22 @@ def test_10():
     assert abs(x.der - 2**(math.exp(math.pi))*math.exp(math.pi)*math.log(2)) < tol
 test_10()
 
+def power_case():
+    x = AD.AADVariable(2)
+    y = AD.AADVariable(2)
+    z = x**y
+
+    assert z.val == 4
+power_case()
+
+def rpower_case():
+    x = AD.AADVariable(2)
+    y = AD.AADVariable(2)
+    z = y**x
+
+    assert z.val == 4
+rpower_case()
+
 def mul_edgecase():
     x = AD.AADVariable(.5)
     try:
@@ -127,6 +143,22 @@ def add_edgecase():
         # Simply assert an error here - an exception has been thrown which means that the code correctly failed
         assert(True)
 add_edgecase()
+
+def add_rev():
+    x = AD.AADVariable(.5)
+
+    y=1+x
+
+    assert y.val == 1.5
+add_rev()
+
+def sub_rev():
+    x = AD.AADVariable(.5)
+
+    y=1-x
+
+    assert y.val == 0.5
+sub_rev()
 
 def div_edgecase():
     x = AD.AADVariable(.5)
