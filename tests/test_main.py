@@ -235,6 +235,11 @@ def neq_test():
     assert x != y
 neq_test()
 
+def neq3_test():
+    x = AD.AADVariable(2, 1)
+    assert x != 2 # 2 as x is not 2 in value
+neq3_test()
+
 def neq2_test():
     x = AD.AADVariable(2, 1)
     y = AD.AADVariable(3, [1])
