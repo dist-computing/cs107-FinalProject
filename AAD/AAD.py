@@ -32,7 +32,7 @@ class AADVariable:
         if val == 0: der = 0. # check if the value passing in is 0, if so than der must be 0 by definition.
 
         self.der = der        # this has hidden implications - see der.setter below for the expected behavior.
-        self.der2 = der2      # second derivative - see caveat above
+        # self.der2 = der2      # second derivative - see caveat above
     
     @property
     def der(self):
@@ -53,32 +53,33 @@ class AADVariable:
         else:
             self._der = np.array([new])
     
-    @property
-    def der2(self):
-        """
-        Returns the self.der2 property. For compatibility, when there is only one variable tracked, it returns a scalar.
-        For code that is explicitly aware of this and handles all derivatives as lists, use self._der directly.
-        """
-
-        return self._der2 if len(self._der2) > 1 else self._der2[0]
-
-    @der2.setter
-    def der2(self, new):
-        """Set the 2nd derivative. Accepts either a list i.e. [1,2,3], np.array([1,2,3]) or scalar (i.e. 2)"""
-        if isinstance(new, list): # accepts list, convert to np.ndarray internally
-            self._der2 = np.array(new)
-        elif isinstance(new, np.ndarray):
-            self._der2 = new
-        else:
-            self._der2 = np.array([new])
+#    
+#    @property
+#    def der2(self):
+#        """
+#        Returns the self.der2 property. For compatibility, when there is only one variable tracked, it returns a scalar.
+#        For code that is explicitly aware of this and handles all derivatives as lists, use self._der directly.
+#        """
+#
+#        return self._der2 if len(self._der2) > 1 else self._der2[0]
+#
+#    @der2.setter
+#    def der2(self, new):
+#        """Set the 2nd derivative. Accepts either a list i.e. [1,2,3], np.array([1,2,3]) or scalar (i.e. 2)"""
+#        if isinstance(new, list): # accepts list, convert to np.ndarray internally
+#            self._der2 = np.array(new)
+#        elif isinstance(new, np.ndarray):
+#            self._der2 = new
+#        else:
+#            self._der2 = np.array([new])#
 
     def jacobian(self):
         """Return the Jacobian (a scalar for a scalar 1-variable function, or a matrix/vector for multivariate)"""
         return self.der
 
-    def hessian(self):
-        """Return the Jacobian (a scalar for a scalar 1-variable function, or a matrix/vector for multivariate)"""
-        return self.der2
+#    def hessian(self):
+#        """Return the Jacobian (a scalar for a scalar 1-variable function, or a matrix/vector for multivariate)"""
+#        return self.der2
 
     def __neg__(self):
         # OVERLOADING NEGATION OPERATOR IE -SELF
@@ -95,11 +96,11 @@ class AADVariable:
         if isinstance(other, AADVariable):
             sv, ov = self.val, other.val
             sd, od = AADUtils.align_lists(self._der, other._der)
-            sh, oh = AADUtils.align_lists(self._der2, other._der2)
+            #sh, oh = AADUtils.align_lists(self._der2, other._der2)
         else: # Is scalar
             sv, ov = self.val, other
             sd, od = AADUtils.align_lists(self._der, 0)
-            sh, oh = AADUtils.align_lists(self._der2, 0)
+            #sh, oh = AADUtils.align_lists(self._der2, 0)
 
         ## Computation
         new.val = sv + ov
@@ -118,11 +119,11 @@ class AADVariable:
         if isinstance(other, AADVariable):
             sv, ov = self.val, other.val
             sd, od = AADUtils.align_lists(self._der, other._der)
-            sh, oh = AADUtils.align_lists(self._der2, other._der2)
+            #sh, oh = AADUtils.align_lists(self._der2, other._der2)
         else: # Is scalar
             sv, ov = self.val, other
             sd, od = AADUtils.align_lists(self._der, 0)
-            sh, oh = AADUtils.align_lists(self._der2, 0)
+            #sh, oh = AADUtils.align_lists(self._der2, 0)
 
         ## Computation
         new.val = sv * ov
@@ -157,11 +158,11 @@ class AADVariable:
         if isinstance(other, AADVariable):
             sv, ov = self.val, other.val
             sd, od = AADUtils.align_lists(self._der, other._der)
-            sh, oh = AADUtils.align_lists(self._der2, other._der2)
+            #sh, oh = AADUtils.align_lists(self._der2, other._der2)
         else: # Is scalar
             sv, ov = self.val, other
             sd, od = AADUtils.align_lists(self._der, 0)
-            sh, oh = AADUtils.align_lists(self._der2, 0)
+            #sh, oh = AADUtils.align_lists(self._der2, 0)
 
         ## Computation
         # (f/g)' = (f'g - g'f)/g**2
@@ -181,11 +182,11 @@ class AADVariable:
         if isinstance(other, AADVariable):
             sv, ov = self.val, other.val
             sd, od = AADUtils.align_lists(self._der, other._der)
-            sh, oh = AADUtils.align_lists(self._der2, other._der2)
+            #sh, oh = AADUtils.align_lists(self._der2, other._der2)
         else: # Is scalar
             sv, ov = self.val, other
             sd, od = AADUtils.align_lists(self._der, 0)
-            sh, oh = AADUtils.align_lists(self._der2, 0)
+            #sh, oh = AADUtils.align_lists(self._der2, 0)
 
         ## Computation
         new.val = ov / sv

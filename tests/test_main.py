@@ -109,6 +109,18 @@ def test_10():
     assert abs(x.der - 2**(math.exp(math.pi))*math.exp(math.pi)*math.log(2)) < tol
 test_10()
 
+#testing x/y
+def test_11():
+    x = AD.AADVariable(1, 1)
+    y = AD.AADVariable(1, [0, 1])
+    f = x/y
+    #value check
+    assert abs(f.val - 1.0) < tol
+    #derivative check
+    assert abs(f.der[0] - 1) < tol
+    assert abs(f.der[1] + 1) < tol
+test_11()
+
 def power_case():
     x = AD.AADVariable(2)
     y = AD.AADVariable(2)
