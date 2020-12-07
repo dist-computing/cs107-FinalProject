@@ -81,6 +81,18 @@ class AADVariable:
 #        """Return the Jacobian (a scalar for a scalar 1-variable function, or a matrix/vector for multivariate)"""
 #        return self.der2
 
+    def __eq__(self, other):
+        """Equality operator."""
+        if not isinstance(other, AADVariable):
+            return False
+        
+        d1, d2 = AADUtils.align_lists(self._der, other._der)
+        res = (self.val == other.val and np.array_equal(d1, d2))
+        return res
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def __neg__(self):
         # OVERLOADING NEGATION OPERATOR IE -SELF
         new = AADVariable(-self.val, -self.der) #, -self.der2)

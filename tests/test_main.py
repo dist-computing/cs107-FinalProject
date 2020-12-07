@@ -221,3 +221,22 @@ def repr_test():
     x = 2**AD.exp(x)
     repr(x)
 repr_test()
+
+#testing eq
+def eq_test():
+    x = AD.AADVariable(2, 1)
+    y = AD.AADVariable(2, [1, 0])
+    assert x == y
+eq_test()
+
+def neq_test():
+    x = AD.AADVariable(2, 1)
+    y = AD.AADVariable(2, [0, 1])
+    assert x != y
+neq_test()
+
+def neq2_test():
+    x = AD.AADVariable(2, 1)
+    y = AD.AADVariable(3, [1])
+    assert x != y
+neq2_test()
