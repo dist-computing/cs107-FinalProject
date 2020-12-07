@@ -149,7 +149,7 @@ def div_func_case():
     x = AD.AADVariable(1)
     y = AD.AADVariable(2)
     z=x/y
-    assert z.val() == 0.5
+    assert z.val == 0.5
 
 div_func_case()
 
