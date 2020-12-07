@@ -33,9 +33,6 @@ class AADVariable:
 
         self.der = der        # this has hidden implications - see der.setter below for the expected behavior.
         self.der2 = der2      # second derivative - see caveat above
-
-    def __cmp__(self, other):
-        return cmp(self.name, other.name)
     
     @property
     def der(self):
