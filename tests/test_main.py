@@ -145,6 +145,14 @@ def div_edgecase_0():
         assert(sys.exc_info()[0] == ZeroDivisionError)
 div_edgecase_0()
 
+def div_func_case():
+    x = AD.AADVariable(1)
+    y = AD.AADVariable(2)
+    z=x/y
+    assert z.val() == 0.5
+
+div_func_case()
+
 def sub_edgecase():
     x = AD.AADVariable(.5)
     try:
