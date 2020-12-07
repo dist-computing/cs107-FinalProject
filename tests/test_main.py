@@ -122,19 +122,21 @@ def test_11():
 test_11()
 
 def power_case():
-    x = AD.AADVariable(2)
-    y = AD.AADVariable(2)
+    x = AD.AADVariable(2, [1, 0])
+    y = AD.AADVariable(2, [0, 1])
     z = x**y
 
     assert z.val == 4
+    assert z.der[0] == 4
 power_case()
 
 def rpower_case():
-    x = AD.AADVariable(2)
-    y = AD.AADVariable(2)
+    x = AD.AADVariable(2, [1, 0])
+    y = AD.AADVariable(2, [0, 1])
     z = y**x
 
     assert z.val == 4
+    assert z.der[1] == 4
 rpower_case()
 
 def mul_edgecase():
