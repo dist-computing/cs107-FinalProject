@@ -55,14 +55,37 @@ class AADVariable:
             self._der = new
         else:
             self._der = np.array([new])
+    
+    @property
+    def der2(self):
+        """
+        Returns the self.der2 property. For compatibility, when there is only one variable tracked, it returns a scalar.
+        For code that is explicitly aware of this and handles all derivatives as lists, use self._der directly.
+        """
+
+        return self._der2 if len(self._der2) > 1 else self._der2[0]
+
+    @der2.setter
+    def der2(self, new):
+        """Set the 2nd derivative. Accepts either a list i.e. [1,2,3], np.array([1,2,3]) or scalar (i.e. 2)"""
+        if isinstance(new, list): # accepts list, convert to np.ndarray internally
+            self._der2 = np.array(new)
+        elif isinstance(new, np.ndarray):
+            self._der2 = new
+        else:
+            self._der2 = np.array([new])
 
     def jacobian(self):
         """Return the Jacobian (a scalar for a scalar 1-variable function, or a matrix/vector for multivariate)"""
         return self.der
 
+    def hessian(self):
+        """Return the Jacobian (a scalar for a scalar 1-variable function, or a matrix/vector for multivariate)"""
+        return self.der2
+
     def __neg__(self):
         # OVERLOADING NEGATION OPERATOR IE -SELF
-        new = AADVariable(-self.val, -self.der)
+        new = AADVariable(-self.val, -self.der, -self.der2)
         return new
 
     def __add__(self, other):
@@ -75,18 +98,22 @@ class AADVariable:
         if isinstance(other, AADVariable):
             sv, ov = self.val, other.val
             sd, od = AADUtils.align_lists(self._der, other._der)
+            sh, oh = AADUtils.align_lists(self._der2, other._der2)
         else: # Is scalar
             sv, ov = self.val, other
-            sd, od = AADUtils.align_lists(self._der, other)
+            sd, od = AADUtils.align_lists(self._der, 0)
+            sh, oh = AADUtils.align_lists(self._der2, 0)
 
         ## Computation
         new.val = sv + ov
         new.der = sd + od
+        #new.der2 = sh + oh
 
         return new
 
     def __mul__(self, other):
         # OVERLOADING THE MULTIPLICATION OPERATOR IE SELF*OTHER
+        
         ## Boilerplate: Create new target variable, padd multivariates
         new = AADVariable(self.val)
 
@@ -94,13 +121,16 @@ class AADVariable:
         if isinstance(other, AADVariable):
             sv, ov = self.val, other.val
             sd, od = AADUtils.align_lists(self._der, other._der)
+            sh, oh = AADUtils.align_lists(self._der2, other._der2)
         else: # Is scalar
             sv, ov = self.val, other
-            sd, od = AADUtils.align_lists(self._der, other)
+            sd, od = AADUtils.align_lists(self._der, 0)
+            sh, oh = AADUtils.align_lists(self._der2, 0)
 
         ## Computation
-        new.der = sd * ov + od * sv
         new.val = sv * ov
+        new.der = sd * ov + od * sv
+        #new.der2 = 2 * sd * od + sv * oh + ov * sh
 
         return new
 
@@ -122,6 +152,7 @@ class AADVariable:
 
     def __truediv__(self, other): 
         #OVERLOADING DIVISION OPERATOR IE SELF/OTHER
+
         ## Boilerplate: Create new target variable, padd multivariates
         new = AADVariable(self.val)
 
@@ -129,14 +160,17 @@ class AADVariable:
         if isinstance(other, AADVariable):
             sv, ov = self.val, other.val
             sd, od = AADUtils.align_lists(self._der, other._der)
+            sh, oh = AADUtils.align_lists(self._der2, other._der2)
         else: # Is scalar
             sv, ov = self.val, other
-            sd, od = AADUtils.align_lists(self._der, other)
+            sd, od = AADUtils.align_lists(self._der, 0)
+            sh, oh = AADUtils.align_lists(self._der2, 0)
 
         ## Computation
         # (f/g)' = (f'g - g'f)/g**2
         new.val = sv / ov
         new.der = (sd * ov - sv * od)/(ov**2)
+        #new.der2 = (ov**2 * sh - ov*(2 * sd * od + sv * oh) + 2*sv*(od**2))/(ov**3)
 
         return new
 
@@ -150,13 +184,16 @@ class AADVariable:
         if isinstance(other, AADVariable):
             sv, ov = self.val, other.val
             sd, od = AADUtils.align_lists(self._der, other._der)
+            sh, oh = AADUtils.align_lists(self._der2, other._der2)
         else: # Is scalar
             sv, ov = self.val, other
-            sd, od = AADUtils.align_lists(self._der, other)
+            sd, od = AADUtils.align_lists(self._der, 0)
+            sh, oh = AADUtils.align_lists(self._der2, 0)
 
         ## Computation
         new.val = ov / sv
         new.der = (od * sv - sd * ov)/(sv**2)
+        #new.der2 = (-sv * ov * sh - 2 * sv * sd * od + 2 * ov * (sd**2) + (sv**2)*oh)/(sv**3)
         return new
 
     def __pow__(self, other): 
@@ -165,10 +202,13 @@ class AADVariable:
         try:
             new.val = self.val ** other.val
             new.der = (self.val ** (other.val - 1)) * (self.der * other.val + self.val * math.log(self.val) * other.der)
+            #new.der2 = (self.val ** other.val) * (other.val * self.der / self.val + math.log(self.val) * other.der)**2 + \
+            #           (self.val ** other.val) * (other.val * self.der2 / self.val + 2 * self.der * other.der / self.val - other.val * self.der**2 / self.val**2 + math.log(self.val) * other.der2)
         #EVALUATING EDGE CASES
         except AttributeError: # just simple case of number...
             new.val = self.val ** other
             new.der = self.val ** (other - 1) * other * self.der
+            #new.der2 = self.val ** (other - 2) * other * ((other - 1) * self.der**2 + self.val * self.der2)
         return new
 
     def __rpow__(self, other):
@@ -177,15 +217,18 @@ class AADVariable:
         try:
             new.val = other.val ** self.val
             new.der = (other.val ** (self.val - 1)) * (other.der * self.val + other.val * math.log(other.val) * self.der)
+            #new.der2 = (other.val ** self.val) * (self.val * other.der / other.val + math.log(other.val) * self.der)**2 + \
+            #           (other.val ** self.val) * (self.val * other.der2 / other.val + 2 * other.der * self.der / other.val - self.val * other.der**2 / other.val**2 + math.log(other.val) * self.der2)
         #EVALUATING EDGE CASES
         except AttributeError: # just "simple" case of number... other**self
             new.val = other ** self.val
             new.der = math.log(other) * other**(self.val) * self.der
+            #new.der2 = math.log(other) * other**(self.val) * (math.log(other) * self.der**2 + self.der2)
         return new
 
     def __repr__(self):
         #OVERLOADING REPR FUNCTION FOR CLEAN DISPLAY
-        return "AADVariable fun = " + str(self.val) + ", der = " + str(self.der)
+        return "AADVariable fun = " + str(self.val) + ", der = " + str(self.der) # + ", hes = " + str(self.der2)
 
 def exp(obj: AADVariable) -> AADVariable:
     """ 
