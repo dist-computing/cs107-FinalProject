@@ -83,7 +83,7 @@ class AADVariable:
 
     def __neg__(self):
         # OVERLOADING NEGATION OPERATOR IE -SELF
-        new = AADVariable(-self.val, -self.der, -self.der2)
+        new = AADVariable(-self.val, -self.der) #, -self.der2)
         return new
 
     def __add__(self, other):
