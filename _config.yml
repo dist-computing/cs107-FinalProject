@@ -7,3 +7,8 @@ urL: "http://aad.fer.me"
 github:
   zip_url: https://github.com/dist-computing/cs107-FinalProject/archive/main.zip
 
+markdown: kramdown
+kramdown:
+    math_engine: mathjax
+    input: GFM
+    syntax_highlighter: rouge
