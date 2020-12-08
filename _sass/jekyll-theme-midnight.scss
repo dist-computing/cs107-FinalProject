@@ -157,7 +157,7 @@ dt {
 #header {
   z-index: 100;
   left:0;
-  top: 0px;
+  top: 20px;
   height: 60px;
   width: 100%;
   position: fixed;
@@ -258,7 +258,6 @@ section {
       font-weight: normal;
       color: #bdbdbd;
       margin-top: -10px;
-      margin-bottom: 20px;
 
 
       &.left {
