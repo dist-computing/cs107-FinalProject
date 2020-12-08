@@ -253,7 +253,7 @@ section {
     }
 
     .credits {
-      font-size: 11px;
+      font-size: 16px;
       font-family: 'OpenSansRegular', "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: normal;
       color: #696969;
@@ -264,6 +264,7 @@ section {
       }
 
       &.right {
+        font-size: 11px;
         float: right;
       }
     }
