@@ -3,7 +3,7 @@ import numpy as np
 
 class AAD_grad:
     @staticmethod
-    def solve(func, init, gamma, max_iter=10000, precision = 10**-6, progress_step=None):
+    def solve(func, init, gamma, max_iter=10**5, precision = 10**-6, progress_step=None):
         
         #create a copy of the initialized variables into the main a
         a=copy.deepcopy(init)
