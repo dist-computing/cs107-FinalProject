@@ -1,3 +1,7 @@
+---
+title: About the code
+---
+
 # Introduction
 
 This software solves the issue of accurate differentiation. 
