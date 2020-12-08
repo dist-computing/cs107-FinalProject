@@ -2,7 +2,11 @@ theme: jekyll-theme-midnight
 title: Awesome Automatic Differentiator
 show_downloads: true
 
-urL: "https://aad.fer.me"
+urL: "http://aad.fer.me"
 
 github:
   zip_url: https://github.com/dist-computing/cs107-FinalProject/archive/main.zip
+
+plugins:
+  -jekyll-feed
+  -jekyll-seo-tag
