@@ -364,13 +364,13 @@ Additionally, for other all other functions in the AAD class we perform the same
 
 ### Use Cases
 
-$ f(x) = 3x-2$
+$$f(x) = 3x-2$$
 
-$ 0 = 3x-2$
+$$0 = 3x-2$$
 
-$ 0 = 3x-2$
+$$0 = 3x-2$$
 
-$ 2/3 = x$
+$$2/3 = x$$
 
 ```python
 
