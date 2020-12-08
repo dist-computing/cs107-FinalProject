@@ -6,7 +6,7 @@ Names:
 * Matheus C. Fernandes
 * Haipeng Lin
 * Ben Manning
-* *CA: Johnathan Jiang
+* *TF: Johnathan Jiang
 
 ## Git Workflow
 * Create your own branch in `feature/name`
