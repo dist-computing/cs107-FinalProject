@@ -1,7 +1,6 @@
 ---
-title: About the code
+ title: About the code 
 ---
-
 # Introduction
 
 This software solves the issue of accurate differentiation. 
@@ -222,6 +221,9 @@ print(AAD_GMRES.solve(lambda x: [x-2], [300])) # [2.0]
 
 ```
 README.md
+demos/                   Final Presentation with appropriate helper files
+   Presentation.ipynb    Final Presentatoin
+   ...
 docs/                    Contains the documentation for the project.
    README.md
    documentation.ipynb   The main documentation.
@@ -364,13 +366,13 @@ Additionally, for other all other functions in the AAD class we perform the same
 
 ### Use Cases
 
-$$f(x) = 3x-2$$
+$$ f(x) = 3x-2$$
 
-$$0 = 3x-2$$
+$$ 0 = 3x-2$$
 
-$$0 = 3x-2$$
+$$ 0 = 3x-2$$
 
-$$2/3 = x$$
+$$ 2/3 = x$$
 
 ```python
 
