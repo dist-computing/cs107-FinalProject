@@ -1,7 +1,7 @@
 ---
  title: About the code 
 ---
-# Test Video
+# Test Video (do not delete for now)
 {% include youtubePlayer.html id="DXUAyRRkI6k" %}
 
 # Introduction
@@ -43,7 +43,7 @@ Because of its similarity to backpropagation, namely, backpropagation of errors 
 and ultimatly enables the ability to optimize a the weights in a neural network.
 
 ### Example Evaluation Trace for a Simple Neural Network
-![](https://raw.githubusercontent.com/matheuscfernandes/cs107_matheus_fernandes/master/homework/HW4/P2_graph.png?token=ACDGXVLL3ZGJV5LQFRTYKXK723QAG)
+![](https://aad.fer.me/assets/images/P2_graph.png)
 
 
 
