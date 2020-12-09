@@ -1,8 +1,8 @@
 ---
  title: About the code 
 ---
-'<iframe width="560" height="315" src="https://www.youtube.com/embed/S_f2qV2_U00?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-
+# Test Video
+{% include youtubePlayer.html id=DXUAyRRkI6k %}
 
 # Introduction
 
