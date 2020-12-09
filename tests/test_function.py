@@ -6,6 +6,10 @@ import AADFunction as ADF
 import math
 
 def test_AADVariable():
+    '''
+    Tests AAD Variable OBJECTS with AAD Variable OBJECTS
+    '''
+
     x=AD.AADVariable(1)
 
     func = ADF.AADFunction(x)
@@ -19,6 +23,9 @@ def test_AADVariable():
 test_AADVariable()
 
 def test_const():
+    '''
+    Tests combing scalars with AAD Variable OBJECTS
+    '''
 
     func = ADF.AADFunction(1)
 

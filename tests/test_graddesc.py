@@ -11,6 +11,9 @@ import math
 tol=0.001
 
 def singleVariable():
+    '''
+    Tests Gradient Descent with a single variable and a single vector
+    '''
     x = AD.AADVariable(3, [1 ,0])
     y = AD.AADVariable(2, [0, 1])
     solve = AAD_grad.solve(lambda X: AD.abs(2*X[0]-12),[x,x],0.001,progress_step=None,max_iter=10000)
@@ -19,6 +22,9 @@ def singleVariable():
 singleVariable()
 
 def multiVariable1():
+    '''
+    Tests Gradient Descent with multiple variables
+    '''
     x = AD.AADVariable(3, [1 ,0])
     y = AD.AADVariable(2, [0, 1]) 
 
@@ -27,6 +33,9 @@ def multiVariable1():
 multiVariable1()
 
 def multiVariable2():
+    '''
+    Tests Gradient Descent with multiple variables
+    '''
     x = AD.AADVariable(3, [1 ,0])
     y = AD.AADVariable(2, [0, 1]) 
 

@@ -7,8 +7,10 @@ import math
 
 tol=1e-14
 
-#testing sin(x)
 def test_1():
+    '''
+    Testing sin(x) derivative and value
+    '''
     x = AD.AADVariable((math.pi/2))
     x = AD.sin(x)
     #value check
@@ -17,8 +19,10 @@ def test_1():
     assert abs(x.der - math.cos(math.pi/2)) <  tol
 test_1()
 
-#testing sin(cos(x))
 def test_2():
+    '''
+    Testing sin(cos(x)) derivative and value
+    '''
     x = AD.AADVariable((math.pi))
     x = AD.sin(AD.cos(x))
     #value check
@@ -27,8 +31,10 @@ def test_2():
     assert abs(x.der - (-math.cos(math.cos(math.pi))*math.sin(math.pi))) <  tol
 test_2()
 
-#testing exp(tan(x))
 def test_3():
+    '''
+    Testing exp(tan(x)) derivative and value
+    '''
     x = AD.AADVariable((math.pi))
     x = AD.exp(AD.tan(x))
     #value check
@@ -37,8 +43,11 @@ def test_3():
     assert abs(x.der - math.exp(math.tan(math.pi))*1/math.cos(math.pi)**2) < tol
 test_3()
 
-#testing sinh(x) + cosh(x) + tanh(x)
 def test_4():
+    '''
+    Testing sinh(x) + cosh(x) + tanh(x) derivative and value
+    This also tests addition operator overides
+    '''
     x = AD.AADVariable(3)
     x = AD.sinh(x) + AD.cosh(x) + AD.tanh(x)
     #value check
@@ -47,8 +56,11 @@ def test_4():
     assert abs(x.der - (math.cosh(3) + 1/(math.cosh(3)**2) + math.sinh(3))) < tol
 test_4()
 
-#log(x) - arcsin(x)
 def test_5():
+     '''
+    Testing log(x) - arcsin(x) derivative and value
+    This also tests subtraction operator overides
+    '''
     x = AD.AADVariable(.5)
     x = AD.log(x) - AD.arcsin(x)
     #value check
@@ -57,8 +69,11 @@ def test_5():
     assert abs(x.der - (1/.5 - 1/math.sqrt(1 - .5**2))) <  tol
 test_5()
 
-#sqrt(x)*arctan(x) + arccos(x)
 def test_6():
+    '''
+    Testing sqrt(x)*arctan(x) + arccos(x) derivative and value
+    This also tests multiplication operator overides
+    '''
     v=0.5
     x = AD.AADVariable((v))
     x = AD.sqrt(x) * AD.arctan(x) + AD.arccos(x)
@@ -68,8 +83,11 @@ def test_6():
     assert abs(x.der- (math.sqrt(v)/(v**2 + 1.) - 1./(math.sqrt(1. - v**2)) + (math.atan(v)/(2. * math.sqrt(v))))) < tol  
 test_6()
 
-#x**2/sqrt(x)
 def test_7():
+    '''
+    Testing x**2/sqrt(x) + arccos(x) derivative and value
+    This also tests division and power overrides
+    '''
     v=4
     x = AD.AADVariable(v)
     x = x**2/AD.sqrt(x)
@@ -79,8 +97,11 @@ def test_7():
     assert abs(x.der-(3.*math.sqrt(v))/2. ) < tol 
 test_7()
 
-#testing 2*cos(x)
 def test_8():
+    '''
+    Testing 2*cos(x) derivative and value
+    This also tests __rmul__ overrides
+    '''
     x = AD.AADVariable((math.pi))
     x = 2*AD.cos(x)
     #value check
@@ -89,8 +110,11 @@ def test_8():
     assert abs(x.der + 2*math.sin(math.pi)) < tol
 test_8()
 
-#testing 2/cos(x)
 def test_9():
+    '''
+    Testing 2/cos(x) derivative and value
+    This also tests __rciv__ overrides
+    '''
     x = AD.AADVariable((math.pi))
     x = 2/AD.cos(x)
     #value check
@@ -101,6 +125,10 @@ test_9()
 
 #testing 2^exp(x)
 def test_10():
+    '''
+    Testing 2^exp(x) derivative and value
+    Testing alternative power symbol
+    '''
     x = AD.AADVariable((math.pi))
     x = 2**AD.exp(x)
     #value check
@@ -109,8 +137,10 @@ def test_10():
     assert abs(x.der - 2**(math.exp(math.pi))*math.exp(math.pi)*math.log(2)) < tol
 test_10()
 
-#testing x/y
 def test_11():
+    '''
+    Testing multiple variable AD object division
+    '''
     x = AD.AADVariable(1, 1)
     y = AD.AADVariable(1, [0, 1])
     f = x/y
@@ -122,6 +152,9 @@ def test_11():
 test_11()
 
 def power_case():
+    '''
+    Testing multiple variable AD object power
+    '''
     x = AD.AADVariable(2, [1, 0])
     y = AD.AADVariable(2, [0, 1])
     z = x**y
@@ -131,6 +164,9 @@ def power_case():
 power_case()
 
 def rpower_case():
+    '''
+    Testing multiple variable AD object power alternate case
+    '''
     x = AD.AADVariable(2, [1, 0])
     y = AD.AADVariable(2, [0, 1])
     z = y**x
@@ -210,6 +246,9 @@ sub_edgecase()
 
 #testing jacobian of 2^exp(x)
 def jacobian_test():
+    '''
+    Tests formation of jacobian
+    '''
     x = AD.AADVariable((math.pi))
     x = 2**AD.exp(x)
     assert abs(x.jacobian() - 2**(math.exp(math.pi))*math.exp(math.pi)*math.log(2)) < tol
@@ -217,6 +256,9 @@ jacobian_test()
 
 #testing repr of 2^exp(x)
 def repr_test():
+    '''
+    Tests __repr__ of AD object
+    '''
     x = AD.AADVariable((math.pi))
     x = 2**AD.exp(x)
     repr(x)
@@ -224,23 +266,35 @@ repr_test()
 
 #testing eq
 def eq_test():
+    '''
+    Tests equality of AD objects
+    '''
     x = AD.AADVariable(2, 1)
     y = AD.AADVariable(2, [1, 0])
     assert x == y
 eq_test()
 
 def neq_test():
+    '''
+    Tests inequality of AD objects
+    '''
     x = AD.AADVariable(2, 1)
     y = AD.AADVariable(2, [0, 1])
     assert x != y
 neq_test()
 
 def neq3_test():
+    '''
+    Tests inequality of AD object and scalar
+    '''
     x = AD.AADVariable(2, 1)
     assert x != 2 # 2 as x is not 2 in value
 neq3_test()
 
 def neq2_test():
+    '''
+    Tests inequality of AD objects
+    '''
     x = AD.AADVariable(2, 1)
     y = AD.AADVariable(3, [1])
     assert x != y

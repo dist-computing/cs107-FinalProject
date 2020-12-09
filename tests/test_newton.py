@@ -11,6 +11,9 @@ import math
 tol=0.001
 
 def singleVariable():
+    '''
+    Tests Newton's method with a single variable and a single vector
+    '''
     x = AD.AADVariable(3, [1 ,0])
     solve = AAD_Newton.solve(lambda x: [x-2], [300])
 
@@ -18,6 +21,9 @@ def singleVariable():
 singleVariable()
 
 def singleVariableNonLinear():
+    '''
+    Tests Newton's method with a single variable nonlinear, and a single vector
+    '''
     x = AD.AADVariable(3, [1 ,0])
     solve = AAD_Newton.solve(lambda x: [x**2-3], [3])
 
@@ -25,6 +31,9 @@ def singleVariableNonLinear():
 singleVariableNonLinear()
 
 def multiVariable1():
+    '''
+    Tests Newton's method with multiple variables and multiple vectors
+    '''
     x = AD.AADVariable(3, [1 ,0])
     y = AD.AADVariable(2, [0, 1]) 
 
@@ -33,6 +42,9 @@ def multiVariable1():
 multiVariable1()
 
 def multiVariableNonLinear1():
+    '''
+    Tests Newton's method with multiple variables that are nonlinear and multiple vectors
+    '''
     x = AD.AADVariable(3, [1 ,0])
     y = AD.AADVariable(2, [0, 1]) 
 
@@ -41,6 +53,9 @@ def multiVariableNonLinear1():
 multiVariableNonLinear1()
 
 def multiVariable2():
+    '''
+    Tests Newton's method with even more variables and multiple vectors
+    '''
     x = AD.AADVariable(3, [1 ,0 ,0 ,0])
     y = AD.AADVariable(2, [0, 1, 0 ,0]) 
     z = AD.AADVariable(2, [0, 0, 1, 0])
