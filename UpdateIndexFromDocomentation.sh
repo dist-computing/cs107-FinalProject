@@ -12,6 +12,7 @@ sed -i '1s/^/ title: About the code \n/' index.md
 sed -i '1s/^/---\n/' index.md
 
 #commit, push and publish
+git pull
 git add index.md documentation.ipynb
 git commit -m 'updated index.md with documentation <automated>'
 git push
