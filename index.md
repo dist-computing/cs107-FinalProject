@@ -2,7 +2,7 @@
  title: About the code 
 ---
 # Test Video
-{% include youtubePlayer.html id=DXUAyRRkI6k %}
+{% include youtubePlayer.html id="DXUAyRRkI6k" %}
 
 # Introduction
 
