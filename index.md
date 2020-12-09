@@ -362,10 +362,48 @@ Additionally, for other all other functions in the AAD class we perform the same
 
 # New Feature
 ### Newton's Method
+The Newton's Method solver uses the `AAD`'s automatic differentiation core to solve systems of linear and non-linear equations. For a system of $k$ (nonlinear)
+equations and continuously differentiable function $F: \mathbb{R}^k \rightarrow \mathbb{R}^k$ we have the Jacobian matrix $J_F(x_n)$ yielding
+
+$$
+x_{n+1} = x_n - J_F(x_n)^{-1} F(x_n)
+$$
+
+Inverting the Jacobian is very expensive and numerically unstable, thus solving the following **linear** system is more practical:
+
+$$
+J_F(x_n)(x_{n+1}-x_n) = -F(x_n)
+$$
+
+We implement this using our automatic differentiation core, which retrieves the Jacobian $J_F(x_n)$ accurate to machine precision - this is the power of automatic differentiation!
 
 ### Gradient Descent
+The Gradient Descient optimizer uses the power of `AAD`'s automatic diferentiation core to efficiently and accurately solve 
+the gradient of the multi-variate function. It uses the gradient to minimize the function and follow the descent of the funciton 
+topology. It does that by updating the location and obtaining the gradient at that location of the function namely:
+
+$$
+a_{n+1}=a_n-\gamma\nabla F(a_n)
+$$
+
+Where $a_{n+1}$ is the new point based on the previous point $a_n$ updated by the gradient of the function evaluated at the 
+previous point $$\gamma\nabla F(a_n)$$, where $$\gamma$$ provides the step size. 
 
 ### GMRES
+
+The GMRES (generalized minimal residual method) solver uses `AAD`'s automatic differentiation core to solve systems of **linear** equations.
+
+When given a system of $k$ linear equations for the function (i.e. linear operator) $F: \mathbb{R}^k \rightarrow \mathbb{R}^k$ with a nonsingular Jacobian matrix
+$J_F(x_n)$, we can *iteratively* solve by applying the GMRES solver to the **action** of the operator $F$ on a seed vector $v$, to yield $\Delta x_k$ for the
+next iteration. Essentially
+
+$$
+a = J_F(x_n) v
+$$
+
+Is all that is needed for GMRES to solve for $J_F(x_k)\Delta x_{k} = -F(x_k)$, and thus does not require the computation of the Jacobian itself.
+
+Using this principle we can iteratively solve for $\Delta x_k$ and improving the guess until convergence.
 
 ### Use Cases
 
