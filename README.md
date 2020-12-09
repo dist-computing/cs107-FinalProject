@@ -2,6 +2,9 @@
 [![codecov](https://codecov.io/gh/dist-computing/cs107-FinalProject/branch/main/graph/badge.svg?token=LGYNF0ZSMA)](https://codecov.io/gh/dist-computing/cs107-FinalProject)
 # Final Project Repo for Group 31
 
+#Find our documentation on our website
+[aad.fer.me](https://aad.fer.me)
+
 Names:
 * Matheus C. Fernandes
 * Haipeng Lin
