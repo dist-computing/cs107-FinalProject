@@ -15103,6 +15103,45 @@ $$<p>Is all that is needed for GMRES to solve for $J_F(x_k)\Delta x_{k} = -F(x_k
 <p>Using this principle we can iteratively solve for $\Delta x_k$ and improving the guess until convergence.</p>
 
 </div>
+</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#GMRES</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">AD</span><span class="o">.</span><span class="n">AADVariable</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span> <span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">initial_guess</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">]</span>
+<span class="n">solve</span> <span class="o">=</span> <span class="n">AAD_GMRES</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">initial_guess</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">solve</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>0.6666666666666679
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -15124,49 +15163,6 @@ J_F(x_n)(x_{n+1}-x_n) = -F(x_n)
 $$<p>We implement this using our automatic differentiation core, which retrieves the Jacobian $J_F(x_n)$ accurate to machine precision</p>
 <p>In the future we can also expand Newton's Method solver to a "least squares sense" solution problem by using a generalized inverse of a non-square Jacobian matrix
 $J^\dagger = (J^TJ)^{-1}J^T$ for non-linear functions, thus expanding our optimization toolbox.</p>
-
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Gradient-Descent">Gradient Descent<a class="anchor-link" href="#Gradient-Descent">&#182;</a></h3><ul>
-<li>Uses the gradient to minimize the function and follow the descent of the funciton 
-topology. </li>
-<li>Updates the location and obtaining the gradient at that location of the function namely:</li>
-</ul>
-$$
-a_{n+1}=a_n-\gamma\nabla F(a_n)
-$$<p>Where $a_{n+1}$ is the new point based on the previous point $a_n$ updated by the gradient of the function evaluated at the 
-previous point $$\gamma\nabla F(a_n)$$, where $$\gamma$$ provides the step size.</p>
-
-</div>
-</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Importing Dependencies</span>
-<span class="kn">from</span> <span class="nn">solvers.Newton</span> <span class="kn">import</span> <span class="n">AAD_Newton</span>
-<span class="kn">from</span> <span class="nn">solvers.GradientDescent</span> <span class="kn">import</span> <span class="n">AAD_grad</span>
-<span class="kn">from</span> <span class="nn">solvers.GMRES</span> <span class="kn">import</span> <span class="n">AAD_GMRES</span>
-
-<span class="c1">#x0 = [x + 0.1 if x == 0 else x for x in x0] # Avoids singular value in the seed vector</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div></section></section><section><section>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Finding the roots of the one-dimensional equation</strong></p>
-<p>$ f(x) = 3x-2$</p>
-<p>$ 0 = 3x-2$</p>
-<p>$ 0 = 3x-2$</p>
-<p>$ 2/3 = x$</p>
 
 </div>
 </div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -15208,6 +15204,20 @@ previous point $$\gamma\nabla F(a_n)$$, where $$\gamma$$ provides the step size.
 
 </div>
 
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Gradient-Descent">Gradient Descent<a class="anchor-link" href="#Gradient-Descent">&#182;</a></h3><ul>
+<li>Uses the gradient to minimize the function and follow the descent of the funciton 
+topology. </li>
+<li>Updates the location and obtaining the gradient at that location of the function namely:</li>
+</ul>
+$$
+a_{n+1}=a_n-\gamma\nabla F(a_n)
+$$<p>Where $a_{n+1}$ is the new point based on the previous point $a_n$ updated by the gradient of the function evaluated at the 
+previous point $$\gamma\nabla F(a_n)$$, where $$\gamma$$ provides the step size.</p>
+
+</div>
 </div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -15247,45 +15257,16 @@ previous point $$\gamma\nabla F(a_n)$$, where $$\gamma$$ provides the step size.
 
 </div>
 
-</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#GMRES</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">AD</span><span class="o">.</span><span class="n">AADVariable</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span> <span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">initial_guess</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">]</span>
-<span class="n">solve</span> <span class="o">=</span> <span class="n">AAD_GMRES</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">initial_guess</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">solve</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>0.6666666666666679
-</pre>
-</div>
-</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>Finding the roots of the one-dimensional equation</strong></p>
+<p>$ f(x) = 3x-2$</p>
+<p>$ 0 = 3x-2$</p>
+<p>$ 0 = 3x-2$</p>
+<p>$ 2/3 = x$</p>
 
 </div>
-
-</div>
-
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
