@@ -25,8 +25,23 @@ class AADVariable:
     Vector-valued functions are not implemented here. Instead, since each element in a vector-valued function is independent,
     they can be handled as a list of AADVariables using an external component. AADVariable is a multivariate-input, scalar-output
     Dual number class in the forward mode.
+
+    Example
+    ------------------
+    >>> x = AADVariable(1, [1,0])
+    >>> y = AADVariable(2, [0,1])
+
+    >>> z1 = x + y
+    >>> z2 = z1**2
+    >>> z3 = sin(z2)
+    >>> z3.val
+
+    >>> z3.der
+    
+
     """
     def __init__(self, val, der=1.0, der2=0.0, name=None):
+
         self.name = name
         self.val = val
         if val == 0: der = 0. # check if the value passing in is 0, if so than der must be 0 by definition.
@@ -382,7 +397,3 @@ def abs(obj: AADVariable) -> AADVariable:
     n_val = np.abs(val)
     n_der = der * val/np.abs(val)
     return AADVariable(n_val,n_der,name=name)
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
