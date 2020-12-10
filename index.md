@@ -73,8 +73,43 @@ cd AAD
 conda create --name AAD python=3.8
 conda install -n AAD requirements.txt
 ```
-
 To activate the environment later, simply use `source activate AAD`.
+
+## How to install as a package from `pip`
+If you prefer the distribution to be installed using PyPI, then install the `aad-jimmielin` package:
+```
+pip install aad-jimmielin
+```
+Import package contents from the `AAD.` package namespace using:
+```python
+from AAD.AADVariable import AADVariable
+```
+
+An interactive example:
+```
+$ python -m pip install --upgrade aad-jimmielin
+Collecting aad-jimmielin
+  Downloading aad_jimmielin-1.1.1-py3-none-any.whl (7.3 kB)
+Successfully installed aad-jimmielin-1.1.1
+
+$ python
+Python 3.7.9 (default, Oct 13 2020, 21:10:49) 
+[GCC 8.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from AAD.AADVariable import AADVariable
+>>> x = AADVariable(1.0, [1,0])
+>>> y = AADVariable(2.0, [0, 1])
+>>> x*y
+AADVariable fun = 2.0, der = [2. 1.]
+
+>>> from AAD.AADFunction import AADFunction
+>>> f = AADFunction([x+1, y*x])
+>>> print(f)
+[AADFunction fun = [2.0, 2.0], der = [[1. 0.]
+ [2. 1.]]]
+>>> 
+```
+
 
 ## Code example (univariate)
 You can create a driver script at the top level, e.g. `my_code.py`, and include the following code to use the `AAD` package:
@@ -155,7 +190,7 @@ z = AADVariable(9.0, [0, 0, 1]) # z = 9.0
 
 For compatibility, **if only one variable is detected, all values are returned as scalars**, otherwise they return a `np.ndarray`.
 
-### Vector-valued functions
+### Vector-valued functions - the `AADFunction` class
 For vector valued functions, they need to be wrapped in the `AADFunction` class to be tracked correctly. An example:
 
 ```python
@@ -284,7 +319,11 @@ because this project is simple enough where we can manage without one.
 # Implementation
 
 ## Data structures
-The `AAD` class holds a scalar dual number and elementary functions required to perform algebra with dual numbers.
+The `AAD` class holds dual numbers and elementary functions required to perform algebra with dual numbers. The dual number
+class is `AADVariable` supporting scalar and vector inputs, and vector valued functions are supported by a `AADFunction`
+auxiliary type.
+
+Internal data structures include the `numpy.ndarray` data type and number types.
 
 ## Classes and method signatures
 ### The `AAD` dual number class
@@ -329,7 +368,7 @@ For matrix support, this software package requires `numpy`, `math`, `SimPy`, `Sc
 For these functions we will evaluate each element of the vector valued function independently and then move on to the next element.
 We will store each evaluation in a numpy array - akin to a jacobian to output the correct derivative.
 
-### Elementary Operators - UPDATE THIS WITH ADDED FEATURES
+### Elementary Operators
 
 We will overload the addition, multiplication, subtraction, division, and power operators to work within our software using
 the baseline dunder methods and the reverse versions.
@@ -376,6 +415,10 @@ J_F(x_n)(x_{n+1}-x_n) = -F(x_n)
 $$
 
 We implement this using our automatic differentiation core, which retrieves the Jacobian $J_F(x_n)$ accurate to machine precision - this is the power of automatic differentiation!
+
+
+In the future we can also expand Newton's Method solver to a "least squares sense" solution problem by using a generalized inverse of a non-square Jacobian matrix
+$J^\dagger = (J^TJ)^{-1}J^T$ for non-linear functions, thus expanding our optimization toolbox.
 
 ### Gradient Descent
 The Gradient Descient optimizer uses the power of `AAD`'s automatic diferentiation core to efficiently and accurately solve 
@@ -444,9 +487,40 @@ print(solve[0]) #this prints [0.6666666666666666]
 
 
 
+# Broader Impact & Inclusivity Statement
+
+For the Awesome Automatic Differentiation project, we had a diverse team of individuals from a variety of backgrounds
+contribute to all parts of the codebase. Our team brought in a diverse set of perspectives not only from our lived 
+experience - which is essential to assessing inclusivity, but from an academic sense of diversity. For lived experience we come
+from three different countries and have lived in a variety of urban and rural settings. Additionally our team speaks multiple languages
+that we can use in order to communicate with external parties who want to work with us. Academically, we work in 
+environmental sciences, applied mathematics and public policy, which has allowed our interdisciplinary team to assess 
+the impact of our work from a variety of perspecitives - both ethical and quantitative. In the process of approving 
+pull requests and assessing code, each member of our time approved all parts of the work through intensive reading
+and discussion, which allowed our disparate academic lenses to assess the strengths and weaknesses of our work. No decisions were made by just one person. Because of the diversity
+of perspective of our team, we believe our code is accessible to the vast majority of people. In the future, however,
+we would hope to add a female perspective to our code review and work, as we were assigned an all male team. This was a glaring
+weakness of our team that we were unable to fix, but will moving forward. We recognize that this could be a barrier to women
+using our code - so we will try to fix it by diversifying our team
+
+We plan to publish our code as open source - which comes with a variety of risks. We cannot explicitly control
+the parties that use our code, but we will have public warnings attached to the documentation in the future. We recognize
+that individuals performing computation projects with nefarious and descriminatory goals (either knowlingly or unknowingly)
+could access our work. We will work to make sure that they are not contributing to our code base through assesssing of previous 
+work and character before approval.
+
+We want people to use our software as a tool for good - no matter what the projects. A final step that we believe is essential
+to propogating this subjective 'good' is for other teams to write impact statements. We see this as a superb practice in self-reflection,
+and before improving external contributions, we would want to see impact and inclusivity statements. However, if there's were for some reason
+triggering to write for an individual, we would make ecxeptions.
+
+In summation, we have worked to make this software inclusive with positive impact. However, inclusivity and impact
+are never complete. We will keep flexible and open minds to continue thinking about how are software can be improved
+both in it's quantitative power and who it effects.
 
 
-# Broader Impact & Inclusivity - BEN DO THIS
+
+
 
 # Future Features & Ideas
 
