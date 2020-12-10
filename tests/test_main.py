@@ -176,6 +176,9 @@ def rpower_case():
 rpower_case()
 
 def mul_edgecase():
+    '''
+    Testing for errors with types
+    '''
     x = AD.AADVariable(.5)
     try:
         y=x*'string'
@@ -186,6 +189,9 @@ def mul_edgecase():
 mul_edgecase()
 
 def add_edgecase():
+    '''
+    Testing for errors with types
+    '''
     x = AD.AADVariable(.5)
     try:
         y=x+'string'
@@ -195,6 +201,9 @@ def add_edgecase():
 add_edgecase()
 
 def add_rev():
+    '''
+    Testing for for reverse addition
+    '''
     x = AD.AADVariable(.5)
 
     y=1+x
@@ -203,6 +212,9 @@ def add_rev():
 add_rev()
 
 def sub_rev():
+    '''
+    Testing for reverse substitution
+    '''
     x = AD.AADVariable(.5)
 
     y=1-x
@@ -211,6 +223,9 @@ def sub_rev():
 sub_rev()
 
 def div_edgecase():
+    '''
+    Testing for errors with types
+    '''
     x = AD.AADVariable(.5)
     try:
         y=x/'string'
@@ -220,6 +235,9 @@ def div_edgecase():
 div_edgecase()
 
 def div_edgecase_0():
+    '''
+    Testing for errors with division by 0
+    '''
     x = AD.AADVariable(.5)
     try:
         y=x/0
@@ -228,6 +246,9 @@ def div_edgecase_0():
 div_edgecase_0()
 
 def div_func_case():
+    '''
+    Testing for type errors
+    '''
     x = AD.AADVariable(1)
     y = AD.AADVariable(2)
     z=x/y
@@ -236,6 +257,9 @@ def div_func_case():
 div_func_case()
 
 def sub_edgecase():
+    '''
+    Testing for type errors
+    '''
     x = AD.AADVariable(.5)
     try:
         y=x-'string'
