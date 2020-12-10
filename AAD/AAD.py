@@ -33,21 +33,29 @@ class AADVariable:
 
     >>> z1 = x + y
     >>> z2 = z1**2
-    >>> z3 = sin(z2)
+    >>> z3 = sin(z2)+cos(y)
     >>> z3.val
-
+    -0.004028351305385813
     >>> z3.der
-    
+    array([-5.46678157, -6.376079  ])
 
     """
-    def __init__(self, val, der=1.0, der2=0.0, name=None):
-
+    def __init__(self, val, der=1.0, name=None):
+        '''
+        Inputs
+        ------------
+        val     : float
+                value set for the AADVariable.
+        der     : float
+                derivat
+                
+        
+        '''
         self.name = name
         self.val = val
         if val == 0: der = 0. # check if the value passing in is 0, if so than der must be 0 by definition.
 
         self.der = der        # this has hidden implications - see der.setter below for the expected behavior.
-        # self.der2 = der2      # second derivative - see caveat above
     
     @property
     def der(self):
@@ -91,7 +99,7 @@ class AADVariable:
         '''
         OVERLOADING NEGATION OPERATOR IE -SELF
         '''
-        new = AADVariable(-self.val, -self.der) #, -self.der2)
+        new = AADVariable(-self.val, -self.der) 
         return new
 
     def __add__(self, other):
@@ -227,7 +235,7 @@ class AADVariable:
         '''
         OVERLOADING REPR FUNCTION FOR CLEAN DISPLAY
         '''
-        return "AADVariable fun = " + str(self.val) + ", der = " + str(self.der) # + ", hes = " + str(self.der2)
+        return "AADVariable fun = " + str(self.val) + ", der = " + str(self.der) 
 
 def exp(obj: AADVariable) -> AADVariable:
     """ 

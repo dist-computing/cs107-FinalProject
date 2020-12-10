@@ -29,7 +29,6 @@ class AADFunction:
         fn      :function
                 function to get the vector-valued function
 
-        
         Example
         -----
         >>> x = AADVariable(1.0, [1.0])
@@ -53,7 +52,6 @@ class AADFunction:
 
     def der(self):
         """
-
         Example
         -----------
         Get the Jacobian of the vector-valued function.
