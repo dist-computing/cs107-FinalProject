@@ -14586,6 +14586,27 @@ conda install -n AAD requirements.txt
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>To install using PyPI via <code>pip</code>, <code>AAD</code> is the package namespace, and thus import is slightly different:</p>
+
+<pre><code>$ python -m pip install --upgrade aad-jimmielin
+
+$ python
+&gt;&gt;&gt; from AAD.AADVariable import AADVariable
+&gt;&gt;&gt; x = AADVariable(1.0, [1,0])
+&gt;&gt;&gt; y = AADVariable(2.0, [0, 1])
+&gt;&gt;&gt; x*y
+AADVariable fun = 2.0, der = [2. 1.]
+
+&gt;&gt;&gt; from AAD.AADFunction import AADFunction
+&gt;&gt;&gt; f = AADFunction([x+1, y*x])
+&gt;&gt;&gt; print(f)
+[AADFunction fun = [2.0, 2.0], der = [[1. 0.]
+ [2. 1.]]]</code></pre>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Github-Pages-Website-Publishing">Github Pages Website Publishing<a class="anchor-link" href="#Github-Pages-Website-Publishing">&#182;</a></h2><p>To efficiently publish the github pages website we further streamlined the work with bash scripting. In the script
 included in the package a person can keep two folders with two branches, one for github pages and one for the gh-pages. 
 By running the bash script below, you can update the website based on the documentation file. <code>./UpdateIndexFromDocomentation.sh</code></p>
@@ -14752,7 +14773,7 @@ git push
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Multi-Dimensional-Example---simple-case">Multi Dimensional Example - simple case<a class="anchor-link" href="#Multi-Dimensional-Example---simple-case">&#182;</a></h3>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Function &amp; Evaluation</strong></p>
@@ -14884,6 +14905,11 @@ git push
 <p><strong>Partial Derivative with respect to Y</strong></p>
 <p>$ \frac{\partial f}{\partial y} (x,y,z) = x \times z $</p>
 <p>$ \frac{\partial f}{\partial y} (2.0,1.0,4.0)  = 2.0 \times 4.0 = 4.0 = 8.0$</p>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Partial Derivative with respect to Z</strong></p>
 <p>$ \frac{\partial f}{\partial z} (x,y,z) = x \times y $</p>
 <p>$ \frac{\partial f}{\partial z} (2.0,1.0,4.0) = 2.0 \times 1.0 = 2.0$</p>
@@ -14990,6 +15016,11 @@ z\\
 1.0\\
 -1.0 
 \end{bmatrix}$</p>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Partial Derivative with respect to Z</strong></p>
 <p>$\frac{\partial f}{\partial Z} (x,y,z) = \begin{bmatrix}
 y\\
