@@ -2,13 +2,21 @@
  title: About the code 
 ---
 # Final Project Presentation Video
+<!-- [![Youtube Video](https://aad.fer.me/assets/images/yt.png)](https://www.youtube.com/watch?v=f46T2JuCtgU) -->
 {% include youtubePlayer.html id="f46T2JuCtgU" %}
 
-## Project Website
+## Slides Deck
+
+Please find the slide deck from the presentation in this link
+
+**[aad.fer.me/Presentation.slides.html](https://aad.fer.me/Presentation.slides.html)**
+
+
+<!-- ## Project Website
 
 Please visit our project website below for full documentation, video, slides and all other resources
 
-**[aad.fer.me](https://aad.fer.me)**
+**[aad.fer.me](https://aad.fer.me)** -->
 
 # Introduction
 
