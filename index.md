@@ -5,7 +5,7 @@
 {% include youtubePlayer.html id="f46T2JuCtgU" %}
 
 ## Slides
-The slides can be fond here
+The slides can be found here
 
 **[aad.fer.me/Presentation.slides.html](https://aad.fer.me/Presentation.slides.html)**
 
