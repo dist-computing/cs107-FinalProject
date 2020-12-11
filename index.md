@@ -4,6 +4,11 @@
 # Final Project Presentation Video
 {% include youtubePlayer.html id="f46T2JuCtgU" %}
 
+## Slides
+The slides can be fond here
+
+**[aad.fer.me/Presentation.slides.html](https://aad.fer.me/Presentation.slides.html)**
+
 # Introduction
 
 This software solves the issue of accurate differentiation. 
