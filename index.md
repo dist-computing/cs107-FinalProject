@@ -4,10 +4,11 @@
 # Final Project Presentation Video
 {% include youtubePlayer.html id="f46T2JuCtgU" %}
 
-## Slides
-The slides can be found here
+## Project Website
 
-**[aad.fer.me/Presentation.slides.html](https://aad.fer.me/Presentation.slides.html)**
+Please visit our project website below for full documentation, video, slides and all other resources
+
+**[aad.fer.me](https://aad.fer.me)**
 
 # Introduction
 
@@ -314,12 +315,6 @@ tests/                   Contains the test suite for the project
 * Our Coverage on `Codecov` can be found here. We always maintain above 90% coverage. [View Coverage Here] (https://codecov.io/gh/dist-computing).
 * You can also manually run tests using `pytest` to ensure your installation and environment is correct.
 
-## Distribution and packaging
-* Currently `AAD` can be installed by cloning from the `git` repository using the command `git clone https://github.com/dist-computing/cs107-FinalProject.git`
-* In the future, we will distribute this package using `PyPI` and through the GitHub repository.
-* In the future, we will use `package`, which will package our package and we will not use a framework. We will not use a framework
-because this project is simple enough where we can manage without one.
-
 
 # Implementation
 
@@ -521,7 +516,7 @@ triggering to write for an individual, we would make ecxeptions.
 
 In summation, we have worked to make this software inclusive with positive impact. However, inclusivity and impact
 are never complete. We will keep flexible and open minds to continue thinking about how are software can be improved
-both in it's quantitative power and who it effects.
+both in its quantitative power and who it effects.
 
 
 
