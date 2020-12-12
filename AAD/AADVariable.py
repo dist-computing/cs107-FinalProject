@@ -48,7 +48,7 @@ class AADVariable:
         ------------
         val     : float
                 value set for the AADVariable.
-        der     : float
+        der     : list or float
                 derivat
                 
         
